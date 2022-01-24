@@ -2,4 +2,5 @@ site_name: NorESM_LandSites_Platform
 nav:
         - Home: index.md
         - For developers: for-devs.md
+        - Map: map-test.md
 theme: readthedocs
