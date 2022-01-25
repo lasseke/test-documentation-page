@@ -1,59 +1,5 @@
-Test if you can include html
- 
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   
-<style>
-.info {
-	padding: 8px;
-	background-color: white;
-	border: solid 1px black;
-	font: 12pt Arial, Helvetica, sans-serif;
-	word-wrap: break-word;
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
-}
 
-.site-info {
-	width: 200px;
-	transition: height 1s;
-}
-
-.info h4 {
-    margin: 0 0 5px;
-}
-
-.resetzoom {
-	background: white;
-	color: black !important;
-	padding: 5px;
-	border: solid 1pt black;
-	border-radius: 5px;
-	font: 14pt Arial, Helvetica, sans-serif;
-}
-
-.resetzoom:hover {
-	background-color: rgba(211,211,211, 0.8) !important;
-	cursor: pointer;
-}
-
-</style>
-   
- <div id="map" style="height: 500px"></div>
-   
- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
-   
-<script type="text/javascript">
-var map = L.map('map').setView([64.616667, 16.65], 4);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+// Site GEOJSON - update manually!
 
 var nlpSites = {
   "type": "FeatureCollection",
@@ -295,6 +241,15 @@ var nlpSites = {
   ]
 };
 
+// Map object
+var map = L.map('map').setView([64.616667, 16.65], 4);
+
+// Base map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Site marker display options
 var geojsonMarkerOptions = {
     radius: 6,
     fillColor: "#ff7800",
@@ -305,7 +260,8 @@ var geojsonMarkerOptions = {
 };
 
 
-// Add hovering
+// Functions for hovering and clicking sites
+
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -330,22 +286,24 @@ function resetHighlight(e) {
 	info.update();
 }
 
-function zoomToFeature(e) {
-	 map.setView(e.latlng, 7);
-}
-
+//function zoomToFeature(e) {
+//   map.setView(e.latlng, 7);
+//}
 
 
 function onEachFeature(feature, layer) {
 	layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
+        mouseout: resetHighlight//,
+        //click: zoomToFeature
     });
     // Display box with site group name on click
-    //if (feature.properties && feature.properties.name) {
-    //    layer.bindPopup(feature.properties.name);
-    //}
+    if (feature.properties && feature.properties.name) {
+        layer.bindPopup(
+          '<b>' + feature.properties.name +
+          '</b><br><span>More info will be shown here.</span>'
+          );
+    }
 }
 
 // Apply to geojson
@@ -369,19 +327,19 @@ geojson = L.geoJSON(nlpSites, {
 function getColor(d) {
         return d === 'SeedClim'  ? "#50c878" :
                d === 'LaticeMIP'  ? "#4169E1" :
-                            "#ff7f00";
+                            "#ff7f00"; //Other
     }
-	
+
 var legend = L.control({position: 'bottomleft'});
 
 legend.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'info legend');
-    labels = ['<strong>Sites</strong>'],
+    labels = ['<strong>Site family</strong>'],
     categories = ['SeedClim', 'LaticeMIP'];
 
     for (var i = 0; i < categories.length; i++) {
 
-            div.innerHTML += 
+            div.innerHTML +=
             labels.push(
                 '<i class="fa fa-circle" style="color:' + getColor(categories[i]) + '"></i> ' +
             (categories[i] ? categories[i] : '+')
@@ -405,8 +363,8 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4>Site info</h4>' +  (props ?
-        '<b>' + props.name + '</b><br />' + 'Additional site information will be shown here.'
-        : 'Hover over a site.');
+        '<b>' + props.name + '</b><br />' + 'Click for more info.'
+        : 'Hover over a site to display its name here.');
 };
 
 info.addTo(map);
@@ -427,6 +385,3 @@ info.addTo(map);
 	return control;
 }())
 .addTo(map);
-
-
-</script>
