@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="stylesheets/map.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -49,6 +50,8 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sites">Sites</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#coming-soon">Coming soon</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#coming-later">Coming later</a>
@@ -60,10 +63,6 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="for-devs/">For developers</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="map-test/">Map</a>
                     </li>
                 </ul>
       </div>
@@ -101,6 +100,16 @@
               
                 <h1 id="noresm_landsites_platform-documentation">NorESM_LandSites_Platform documentation</h1>
 <p>The repository is stored <a href="https://github.com/NorESMhub/NorESM_LandSites_Platform">here</a>.</p>
+<h2 id="sites">Sites</h2>
+<p><link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></p>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
 <h2 id="coming-soon">Coming soon</h2>
 <ul>
 <li>Better documentation</li>
@@ -151,6 +160,7 @@
     <script>var base_url = '.';</script>
     <script src="js/theme_extra.js" defer></script>
     <script src="js/theme.js" defer></script>
+      <script src="javascripts/map.js" defer></script>
       <script src="search/main.js" defer></script>
     <script defer>
         window.onload = function () {
@@ -163,5 +173,5 @@
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-01-24 22:45:03.068300+00:00
+Build Date UTC : 2022-01-25 11:18:52.531605+00:00
 -->
